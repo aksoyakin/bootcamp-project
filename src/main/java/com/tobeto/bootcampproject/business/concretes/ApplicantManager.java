@@ -10,7 +10,9 @@ import com.tobeto.bootcampproject.business.responses.get.applicant.GetApplicantR
 import com.tobeto.bootcampproject.business.responses.update.applicant.UpdateApplicantResponse;
 import com.tobeto.bootcampproject.core.utilities.modelmapper.ModelMapperService;
 import com.tobeto.bootcampproject.core.utilities.results.DataResult;
+import com.tobeto.bootcampproject.core.utilities.results.Result;
 import com.tobeto.bootcampproject.core.utilities.results.SuccessDataResult;
+import com.tobeto.bootcampproject.core.utilities.results.SuccessResult;
 import com.tobeto.bootcampproject.dataaccess.abstracts.ApplicantRepository;
 import com.tobeto.bootcampproject.entities.concretes.Applicant;
 import lombok.AllArgsConstructor;
@@ -104,5 +106,11 @@ public class ApplicantManager implements ApplicantService {
                 .map(applicant,UpdateApplicantResponse.class);
 
         return new SuccessDataResult<UpdateApplicantResponse>(response,"Applicant updated successfully.");
+    }
+
+    @Override
+    public Result delete(int id) {
+        applicantRepository.deleteById(id);
+        return new SuccessResult("Applicant deleted successfully.");
     }
 }

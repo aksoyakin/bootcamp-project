@@ -1,6 +1,7 @@
 package com.tobeto.bootcampproject.webapi;
 
 import com.tobeto.bootcampproject.core.utilities.results.DataResult;
+import com.tobeto.bootcampproject.core.utilities.results.Result;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -11,5 +12,11 @@ public class BaseController {
             return ResponseEntity.ok(dataResult);
 
         return ResponseEntity.badRequest().body(dataResult);
+    }
+    public ResponseEntity<?> handleResult(Result result){
+        if(result.isSuccess()){
+            return ResponseEntity.ok(result);
+        }
+        return ResponseEntity.badRequest().body(result);
     }
 }
