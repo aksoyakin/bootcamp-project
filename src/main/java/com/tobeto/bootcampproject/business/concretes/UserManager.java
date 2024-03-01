@@ -2,6 +2,7 @@ package com.tobeto.bootcampproject.business.concretes;
 
 import com.tobeto.bootcampproject.business.abstracts.UserService;
 import com.tobeto.bootcampproject.business.responses.get.user.GetAllUserResponse;
+import com.tobeto.bootcampproject.business.responses.get.user.GetUserByEmailResponse;
 import com.tobeto.bootcampproject.core.utilities.modelmapper.ModelMapperService;
 import com.tobeto.bootcampproject.core.utilities.results.DataResult;
 import com.tobeto.bootcampproject.core.utilities.results.SuccessDataResult;
@@ -30,5 +31,15 @@ public class UserManager implements UserService {
                 .collect(Collectors.toList());
 
         return new SuccessDataResult<List<GetAllUserResponse>>(userResponses,"All users are listed.");
+    }
+
+    @Override
+    public DataResult<GetUserByEmailResponse> getUserByEmail(String email) {
+        User user = userRepository.findByEmail(email);
+        GetUserByEmailResponse response = modelMapperService
+                .forResponse()
+                .map(user,GetUserByEmailResponse.class);
+
+        return new SuccessDataResult<GetUserByEmailResponse>(response,"Users listed successfully.");
     }
 }
