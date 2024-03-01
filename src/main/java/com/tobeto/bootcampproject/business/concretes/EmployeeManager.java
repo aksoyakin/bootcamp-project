@@ -10,7 +10,9 @@ import com.tobeto.bootcampproject.business.responses.get.employee.GetEmployeeRes
 import com.tobeto.bootcampproject.business.responses.update.employee.UpdateEmployeeResponse;
 import com.tobeto.bootcampproject.core.utilities.modelmapper.ModelMapperService;
 import com.tobeto.bootcampproject.core.utilities.results.DataResult;
+import com.tobeto.bootcampproject.core.utilities.results.Result;
 import com.tobeto.bootcampproject.core.utilities.results.SuccessDataResult;
+import com.tobeto.bootcampproject.core.utilities.results.SuccessResult;
 import com.tobeto.bootcampproject.dataaccess.abstracts.EmployeeRepository;
 import com.tobeto.bootcampproject.entities.concretes.Employee;
 import lombok.AllArgsConstructor;
@@ -95,6 +97,13 @@ public class EmployeeManager implements EmployeeService {
         return new SuccessDataResult<UpdateEmployeeResponse>(response,"Employee updated successfully.");
 
 
+
+    }
+
+    @Override
+    public Result delete(int id) {
+        employeeRepository.deleteById(id);
+        return new SuccessResult("Employee deleted successfully.");
 
     }
 

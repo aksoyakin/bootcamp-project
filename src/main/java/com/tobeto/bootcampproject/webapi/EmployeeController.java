@@ -43,4 +43,9 @@ public class EmployeeController extends BaseController {
     public ResponseEntity<?> updateEmployee(@RequestBody UpdateEmployeeRequest request, @PathVariable int id){
         return handleDataResult(employeeService.updateEmployee(request,id));
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteById(@PathVariable int id){
+        return handleResult(employeeService.delete(id));
+    }
 }

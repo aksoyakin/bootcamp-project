@@ -7,6 +7,7 @@ import com.tobeto.bootcampproject.business.responses.get.employee.GetAllEmployee
 import com.tobeto.bootcampproject.business.responses.get.employee.GetEmployeeResponse;
 import com.tobeto.bootcampproject.business.responses.update.employee.UpdateEmployeeResponse;
 import com.tobeto.bootcampproject.core.utilities.results.DataResult;
+import com.tobeto.bootcampproject.core.utilities.results.Result;
 
 import java.util.List;
 
@@ -15,5 +16,5 @@ public interface EmployeeService {
     DataResult<GetEmployeeResponse> getById(int id);
     DataResult<List<GetAllEmployeeResponse>> getAll();
     DataResult<UpdateEmployeeResponse> updateEmployee(UpdateEmployeeRequest request, int id);
-
+    Result delete(int id);
 }
