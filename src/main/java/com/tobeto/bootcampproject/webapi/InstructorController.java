@@ -2,6 +2,7 @@ package com.tobeto.bootcampproject.webapi;
 
 import com.tobeto.bootcampproject.business.abstracts.InstructorService;
 import com.tobeto.bootcampproject.business.requests.create.instructor.CreateInstructorRequest;
+import com.tobeto.bootcampproject.business.requests.update.instructor.UpdateInstructorRequest;
 import com.tobeto.bootcampproject.business.responses.create.instructor.CreateInstructorResponse;
 import com.tobeto.bootcampproject.business.responses.get.instructor.GetAllInstructorResponse;
 import com.tobeto.bootcampproject.business.responses.get.instructor.GetInstructorResponse;
@@ -38,5 +39,11 @@ public class InstructorController extends BaseController {
     ResponseEntity<?> getAll(){
         return handleDataResult(instructorService.getAll());
        // return instructorService.getAll();
+    }
+
+    @PutMapping("/{id}")
+    ResponseEntity<?> updateInstructorById(@RequestBody UpdateInstructorRequest request, @PathVariable int id){
+        return handleDataResult(instructorService.updateInstructorById(request,id));
+
     }
 }
