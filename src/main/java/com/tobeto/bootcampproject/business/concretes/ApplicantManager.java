@@ -96,7 +96,7 @@ public class ApplicantManager implements ApplicantService {
         applicant.setUsername(applicantToBeUpdate.getUsername() != null ? applicantToBeUpdate.getUsername() : applicant.getAbout());
         applicant.setNationalIdentity(applicantToBeUpdate.getNationalIdentity() != null ? applicantToBeUpdate.getNationalIdentity() : applicant.getNationalIdentity());
         applicant.setDateOfBirth(applicantToBeUpdate.getDateOfBirth() != null ? applicantToBeUpdate.getDateOfBirth() : applicant.getDateOfBirth());
-        applicant.setEmail(applicantToBeUpdate.getEmail() != null ? applicantToBeUpdate.getEmail() : applicant.getEmail());
+     //   applicant.setEmail(applicantToBeUpdate.getEmail() != null ? applicantToBeUpdate.getEmail() : applicant.getEmail());
         applicantRepository.save(applicant);
 
         UpdateApplicantResponse response = modelMapperService
@@ -104,12 +104,5 @@ public class ApplicantManager implements ApplicantService {
                 .map(applicant,UpdateApplicantResponse.class);
 
         return new SuccessDataResult<UpdateApplicantResponse>(response,"Applicant updated successfully.");
-
-
-
-
-
-
-
     }
 }

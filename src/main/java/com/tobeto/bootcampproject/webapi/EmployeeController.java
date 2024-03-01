@@ -2,6 +2,7 @@ package com.tobeto.bootcampproject.webapi;
 
 import com.tobeto.bootcampproject.business.abstracts.EmployeeService;
 import com.tobeto.bootcampproject.business.requests.create.employee.CreateEmployeeRequest;
+import com.tobeto.bootcampproject.business.requests.update.employee.UpdateEmployeeRequest;
 import com.tobeto.bootcampproject.business.responses.create.employee.CreateEmployeeResponse;
 import com.tobeto.bootcampproject.business.responses.get.employee.GetAllEmployeeResponse;
 import com.tobeto.bootcampproject.business.responses.get.employee.GetEmployeeResponse;
@@ -36,5 +37,10 @@ public class EmployeeController extends BaseController {
     public ResponseEntity<?> getAll(){
         return handleDataResult(employeeService.getAll());
         // return employeeService.getAll();
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<?> updateEmployee(@RequestBody UpdateEmployeeRequest request, @PathVariable int id){
+        return handleDataResult(employeeService.updateEmployee(request,id));
     }
 }
