@@ -11,7 +11,9 @@ import com.tobeto.bootcampproject.business.responses.get.instructor.GetInstructo
 import com.tobeto.bootcampproject.business.responses.update.instructor.UpdateInstructorResponse;
 import com.tobeto.bootcampproject.core.utilities.modelmapper.ModelMapperService;
 import com.tobeto.bootcampproject.core.utilities.results.DataResult;
+import com.tobeto.bootcampproject.core.utilities.results.Result;
 import com.tobeto.bootcampproject.core.utilities.results.SuccessDataResult;
+import com.tobeto.bootcampproject.core.utilities.results.SuccessResult;
 import com.tobeto.bootcampproject.dataaccess.abstracts.InstructorRepository;
 import com.tobeto.bootcampproject.entities.concretes.Instructor;
 import lombok.AllArgsConstructor;
@@ -98,7 +100,11 @@ public class InstructorManager implements InstructorService {
 
         return new SuccessDataResult<UpdateInstructorResponse>(response,"Instructor updated successfully.");
 
+    }
 
-
+    @Override
+    public Result delete(int id) {
+        instructorRepository.deleteById(id);
+        return new SuccessResult("Applicant deleted succcessfully.");
     }
 }
