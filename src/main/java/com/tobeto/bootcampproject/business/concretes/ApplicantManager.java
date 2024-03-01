@@ -3,9 +3,11 @@ package com.tobeto.bootcampproject.business.concretes;
 import com.tobeto.bootcampproject.business.abstracts.ApplicantService;
 import com.tobeto.bootcampproject.business.constants.ApplicantMessage;
 import com.tobeto.bootcampproject.business.requests.create.applicant.CreateApplicantRequest;
+import com.tobeto.bootcampproject.business.requests.update.applicant.UpdateApplicantRequest;
 import com.tobeto.bootcampproject.business.responses.create.applicant.CreateApplicantResponse;
 import com.tobeto.bootcampproject.business.responses.get.applicant.GetAllApplicantResponse;
 import com.tobeto.bootcampproject.business.responses.get.applicant.GetApplicantResponse;
+import com.tobeto.bootcampproject.business.responses.update.applicant.UpdateApplicantResponse;
 import com.tobeto.bootcampproject.core.utilities.modelmapper.ModelMapperService;
 import com.tobeto.bootcampproject.core.utilities.results.DataResult;
 import com.tobeto.bootcampproject.core.utilities.results.SuccessDataResult;
@@ -73,5 +75,41 @@ public class ApplicantManager implements ApplicantService {
         return new SuccessDataResult
                 <List<GetAllApplicantResponse>>
                 (applicantResponses,ApplicantMessage.applicantListed);
+    }
+
+    @Override
+    public DataResult<UpdateApplicantResponse> updateApplicantById(UpdateApplicantRequest request, int id) {
+        Applicant applicant = applicantRepository
+                .findById(id)
+                .orElseThrow(() -> new RuntimeException("Bu id'ye sahip bir 'applicant' bulunamadı!"));
+
+        Applicant applicantToBeUpdate = modelMapperService
+                .forRequest()
+                .map(request,Applicant.class);
+
+        applicant.setId(id);
+        applicant.setUpdatedDate(LocalDateTime.now());
+
+        applicant.setFirstName(applicantToBeUpdate.getFirstName() != null ? applicantToBeUpdate.getFirstName() : applicant.getFirstName());
+        applicant.setLastName(applicantToBeUpdate.getLastName() != null? applicantToBeUpdate.getLastName() : applicant.getLastName());
+        applicant.setAbout(applicantToBeUpdate.getAbout() != null ? applicantToBeUpdate.getAbout() : applicant.getAbout());
+        applicant.setUsername(applicantToBeUpdate.getUsername() != null ? applicantToBeUpdate.getUsername() : applicant.getAbout());
+        applicant.setNationalIdentity(applicantToBeUpdate.getNationalIdentity() != null ? applicantToBeUpdate.getNationalIdentity() : applicant.getNationalIdentity());
+        applicant.setDateOfBirth(applicantToBeUpdate.getDateOfBirth() != null ? applicantToBeUpdate.getDateOfBirth() : applicant.getDateOfBirth());
+        applicant.setEmail(applicantToBeUpdate.getEmail() != null ? applicantToBeUpdate.getEmail() : applicant.getEmail());
+        applicantRepository.save(applicant);
+
+        UpdateApplicantResponse response = modelMapperService
+                .forResponse()
+                .map(applicant,UpdateApplicantResponse.class);
+
+        return new SuccessDataResult<UpdateApplicantResponse>(response,"Applicant updated successfully.");
+
+
+
+
+
+
+
     }
 }

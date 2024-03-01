@@ -3,6 +3,7 @@ package com.tobeto.bootcampproject.webapi;
 
 import com.tobeto.bootcampproject.business.abstracts.ApplicantService;
 import com.tobeto.bootcampproject.business.requests.create.applicant.CreateApplicantRequest;
+import com.tobeto.bootcampproject.business.requests.update.applicant.UpdateApplicantRequest;
 import com.tobeto.bootcampproject.business.responses.create.applicant.CreateApplicantResponse;
 import com.tobeto.bootcampproject.business.responses.get.applicant.GetAllApplicantResponse;
 import com.tobeto.bootcampproject.business.responses.get.applicant.GetApplicantResponse;
@@ -40,6 +41,11 @@ public class ApplicantController extends BaseController{
         return handleDataResult(applicantService.getAll());
 
         // return applicantService.getAll();
+    }
+
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<?> updateApplicant(@RequestBody UpdateApplicantRequest request, @PathVariable int id){
+        return handleDataResult(applicantService.updateApplicantById(request,id));
     }
 
 
